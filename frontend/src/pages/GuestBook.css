@@ -1,0 +1,122 @@
+.guestbook {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.guestbook__title {
+  text-align: center;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+}
+
+.guestbook__sort {
+  display: block;
+  margin: 0 0 1.5rem auto;
+  background: none;
+  border: none;
+  outline: none;
+  appearance: none;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.guestbook__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.guestbook__entry {
+  text-align: center;
+}
+
+.guestbook__date {
+  font-family: var(--font-accent);
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.guestbook__text {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.guestbook__write-btn {
+  display: block;
+  margin: 2.5rem auto 0;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+}
+
+.guestbook__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.guestbook__textarea {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  padding: 1rem;
+  min-height: 250px;
+  resize: vertical;
+}
+
+.guestbook__textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.guestbook__notice {
+  font-family: var(--font-secondary);
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.guestbook__form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.guestbook__cancel,
+.guestbook__submit {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+}
+
+.guestbook__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.guestbook__feedback {
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.guestbook__feedback--success {
+  color: #ffffff;
+}
+
+.guestbook__feedback--error {
+  color: #e08a8a;
+}

@@ -1,0 +1,40 @@
+:root {
+  --color-bg: #20150b;
+  --color-text: #ffffff;
+
+  --font-primary: 'Didact Gothic', sans-serif;
+  --font-secondary: 'Kodchasan', sans-serif;
+  --font-accent: 'Island Moments', cursive;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-primary);
+  font-weight: normal;
+  letter-spacing: 0.15em;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
+}

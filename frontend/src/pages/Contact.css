@@ -1,0 +1,82 @@
+.contact {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.contact__title {
+  text-align: center;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+}
+
+.contact__intro {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact__input,
+.contact__textarea {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+}
+
+.contact__input::placeholder,
+.contact__textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.contact__textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.contact__submit {
+  align-self: center;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  padding: 0.6rem 2rem;
+  cursor: pointer;
+}
+
+.contact__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.contact__feedback {
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.contact__feedback--success {
+  color: #ffffff;
+}
+
+.contact__feedback--error {
+  color: #e08a8a;
+}
+
+.contact__input:-webkit-autofill,
+.contact__input:-webkit-autofill:hover,
+.contact__input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
