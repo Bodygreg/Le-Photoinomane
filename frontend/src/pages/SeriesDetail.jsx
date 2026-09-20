@@ -1,13 +1,32 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import mockSeries from '../data/mockSeries'
 import './SeriesDetail.css'
 
 function SeriesDetail() {
   const { id } = useParams()
-  const series = mockSeries.find((s) => s.id === Number(id))
+  const [series, setSeries] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [currentPhoto, setCurrentPhoto] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    fetch(`${import.meta.env.VITE_API_URL}/api/series/${id}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Série introuvable.')
+        return res.json()
+      })
+      .then((data) => {
+        setSeries(data)
+        setCurrentPhoto(0)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [id])
 
   const goToPrevious = () => {
     setCurrentPhoto((prev) => (prev === 0 ? series.photos.length - 1 : prev - 1))
@@ -22,14 +41,13 @@ function SeriesDetail() {
 
     const interval = setInterval(() => {
       setCurrentPhoto((prev) => (prev === series.photos.length - 1 ? 0 : prev + 1))
-    }, 4000)
+    }, 2500)
 
     return () => clearInterval(interval)
   }, [isPlaying, series])
 
-  if (!series) {
-    return <p>Série introuvable.</p>
-  }
+  if (loading) return <p className="series-detail__status">Chargement...</p>
+  if (error) return <p className="series-detail__status">{error}</p>
 
   const photo = series.photos[currentPhoto]
 
@@ -41,7 +59,8 @@ function SeriesDetail() {
         <button className="series-detail__arrow" onClick={goToPrevious}>‹</button>
 
         <div className="series-detail__image">
-          <span className="series-detail__caption">{photo.caption}</span>
+          <img src={photo.url} alt={photo.caption || series.title} />
+          {photo.caption && <span className="series-detail__caption">{photo.caption}</span>}
         </div>
 
         <button className="series-detail__arrow" onClick={goToNext}>›</button>
