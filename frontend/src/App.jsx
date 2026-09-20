@@ -6,6 +6,8 @@ import SeriesDetail from './pages/SeriesDetail'
 import Contact from './pages/Contact'
 import GuestBook from './pages/GuestBook'
 import About from './pages/About'
+import AdminRoute from './components/AdminRoute'
+import AdminDashboard from './pages/admin/AdminDashboard'
 
 function App() {
   return (
@@ -19,6 +21,14 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/livre-or" element={<GuestBook />} />
             <Route path="/a-propos" element={<About />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              }
+            />
           </Routes>
         </main>
         <Footer />

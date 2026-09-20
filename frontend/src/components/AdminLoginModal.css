@@ -1,0 +1,48 @@
+.admin-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.admin-modal__box {
+  background: var(--color-bg);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  padding: 2rem;
+}
+
+.admin-modal__box form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-modal__input {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  padding: 0.6rem 1rem;
+  min-width: 220px;
+}
+
+.admin-modal__submit {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.admin-modal__error {
+  color: #e08a8a;
+  font-size: 0.8rem;
+  text-align: center;
+}

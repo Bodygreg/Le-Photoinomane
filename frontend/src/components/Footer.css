@@ -12,3 +12,7 @@
   font-family: var(--font-secondary);
   font-size: 0.9rem;
 }
+
+.footer__link--admin {
+  opacity: 0.5;
+}
