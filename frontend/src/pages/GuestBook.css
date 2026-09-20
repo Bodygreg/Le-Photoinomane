@@ -120,3 +120,10 @@
 .guestbook__feedback--error {
   color: #e08a8a;
 }
+
+.guestbook__status {
+  text-align: center;
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  padding: 1.5rem 0;
+}

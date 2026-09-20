@@ -6,7 +6,7 @@ function Contact() {
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'error'
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!email || !message) {
@@ -14,14 +14,23 @@ function Contact() {
       return
     }
 
-    // Simulation d'envoi en attendant le backend
     setStatus('sending')
-    setTimeout(() => {
-      console.log('Envoi simulé :', { email, message })
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, message }),
+      })
+
+      if (!res.ok) throw new Error()
+
       setStatus('success')
       setEmail('')
       setMessage('')
-    }, 800)
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -57,7 +66,7 @@ function Contact() {
         </button>
 
         {status === 'success' && <p className="contact__feedback contact__feedback--success">Message envoyé !</p>}
-        {status === 'error' && <p className="contact__feedback contact__feedback--error">Merci de remplir tous les champs.</p>}
+        {status === 'error' && <p className="contact__feedback contact__feedback--error">Une erreur est survenue. Merci de réessayer.</p>}
       </form>
     </div>
   )

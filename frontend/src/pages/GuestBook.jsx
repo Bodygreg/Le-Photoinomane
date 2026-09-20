@@ -1,17 +1,28 @@
-import { useState } from 'react'
-import mockGuestbook from '../data/mockGuestbook'
+import { useState, useEffect } from 'react'
 import './GuestBook.css'
 
 function GuestBook() {
   const [view, setView] = useState('list') // 'list' | 'write'
   const [sortOrder, setSortOrder] = useState('desc') // 'desc' = récent d'abord
+  const [entries, setEntries] = useState([])
+  const [loadingEntries, setLoadingEntries] = useState(true)
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'error'
 
-  const sortedEntries = [...mockGuestbook].sort((a, b) => {
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/guestbook`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEntries(data)
+        setLoadingEntries(false)
+      })
+      .catch(() => setLoadingEntries(false))
+  }, [])
+
+  const sortedEntries = [...entries].sort((a, b) => {
     return sortOrder === 'desc'
-      ? new Date(b.date) - new Date(a.date)
-      : new Date(a.date) - new Date(b.date)
+      ? new Date(b.createdAt) - new Date(a.createdAt)
+      : new Date(a.createdAt) - new Date(b.createdAt)
   })
 
   const toggleSortOrder = () => {
@@ -26,7 +37,7 @@ function GuestBook() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!message.trim()) {
@@ -34,13 +45,22 @@ function GuestBook() {
       return
     }
 
-    // Simulation d'envoi en attendant le backend (le message part en attente de validation admin)
     setStatus('sending')
-    setTimeout(() => {
-      console.log('Message envoyé pour validation :', message)
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/guestbook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: message }),
+      })
+
+      if (!res.ok) throw new Error()
+
       setStatus('success')
       setMessage('')
-    }, 800)
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -53,14 +73,22 @@ function GuestBook() {
             ↑↓
           </button>
 
-          <div className="guestbook__list">
-            {sortedEntries.map((entry) => (
-              <div key={entry.id} className="guestbook__entry">
-                <p className="guestbook__date">{formatDate(entry.date)}</p>
-                <p className="guestbook__text">{entry.text}</p>
-              </div>
-            ))}
-          </div>
+          {loadingEntries ? (
+            <p className="guestbook__status">Chargement...</p>
+          ) : (
+            <div className="guestbook__list">
+              {sortedEntries.length === 0 ? (
+                <p className="guestbook__status">Aucun message pour l'instant.</p>
+              ) : (
+                sortedEntries.map((entry) => (
+                  <div key={entry.id} className="guestbook__entry">
+                    <p className="guestbook__date">{formatDate(entry.createdAt)}</p>
+                    <p className="guestbook__text">{entry.text}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
 
           <button className="guestbook__write-btn" onClick={() => setView('write')}>
             Ecrire un message
@@ -99,7 +127,7 @@ function GuestBook() {
           )}
           {status === 'error' && (
             <p className="guestbook__feedback guestbook__feedback--error">
-              Merci d'écrire un message avant d'envoyer.
+              Une erreur est survenue. Merci de réessayer.
             </p>
           )}
         </form>
