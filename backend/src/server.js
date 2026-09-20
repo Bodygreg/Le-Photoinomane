@@ -5,6 +5,7 @@ import seriesRoutes from './routes/series.routes.js'
 import contactRoutes from './routes/contact.routes.js'
 import guestbookRoutes from './routes/guestbook.routes.js'
 import adminRoutes from './routes/admin.routes.js'
+import uploadRoutes from './routes/upload.routes.js'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -15,6 +16,7 @@ app.use('/api/admin', adminRoutes)
 app.use('/api/series', seriesRoutes)
 app.use('/api/contact', contactRoutes)
 app.use('/api/guestbook', guestbookRoutes)
+app.use('/api/upload', uploadRoutes)
 
 app.get('/', (req, res) => {
   res.json({ message: 'API Le Photoïnomane opérationnelle' })
