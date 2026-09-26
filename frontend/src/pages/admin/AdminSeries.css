@@ -1,0 +1,124 @@
+.admin-series-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+}
+
+.admin-series-form input[type="text"],
+.admin-series-form textarea {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  padding: 0.6rem 0.9rem;
+}
+
+.admin-series-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.admin-series-form__photos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-series-form__photo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-series-form__photo img {
+  width: 60px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.admin-series-form__photo input {
+  flex: 1;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+}
+
+.admin-series-form__photo button {
+  background: none;
+  border: none;
+  color: #e08a8a;
+  cursor: pointer;
+}
+
+.admin-series-form__upload {
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  text-align: center;
+  padding: 0.6rem;
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.admin-series-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.admin-series-form__actions button {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+}
+
+.admin-series-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-series-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+}
+
+.admin-series-list__item div {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.admin-series-list__item button {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+}
+
+.admin-series-form__cover-badge {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-secondary);
+  white-space: nowrap;
+}

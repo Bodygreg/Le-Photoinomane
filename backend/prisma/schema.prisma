@@ -24,7 +24,7 @@ model Photo {
   caption  String?
   order    Int    @default(0)
   seriesId Int
-  series   Series @relation(fields: [seriesId], references: [id])
+  series   Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
 }
 
 model GuestbookEntry {

@@ -34,6 +34,7 @@ function Home() {
           id={s.id}
           title={s.title}
           excerpt={s.excerpt}
+          photos={s.photos}
         />
       ))}
     </div>

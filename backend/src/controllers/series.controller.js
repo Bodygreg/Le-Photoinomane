@@ -3,6 +3,12 @@ import prisma from '../prisma.js'
 export async function getAllSeries(req, res) {
   const series = await prisma.series.findMany({
     orderBy: { createdAt: 'desc' },
+    include: {
+      photos: {
+        orderBy: { order: 'asc' },
+        take: 1,
+      },
+    },
   })
   res.json(series)
 }
