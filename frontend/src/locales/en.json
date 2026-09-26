@@ -1,1 +1,46 @@
-{}
+{
+  "nav": {
+    "title": "Le Photoïnomane"
+  },
+  "footer": {
+    "guestbook": "Guestbook",
+    "about": "About",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "home": {
+    "loading": "Loading...",
+    "error": "Error loading series."
+  },
+  "seriesDetail": {
+    "loading": "Loading...",
+    "notFound": "Series not found."
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
+    "emailPlaceholder": "e-mail",
+    "messagePlaceholder": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Message sent!",
+    "error": "An error occurred. Please try again."
+  },
+  "guestbook": {
+    "title": "Guestbook",
+    "writeButton": "Write a message",
+    "backButton": "Back",
+    "textareaPlaceholder": "Your thoughts",
+    "notice": "All impressions are welcome, as long as they are courteous and respectful.\nAll critiques too, as long as they are objective and constructive.\nThank you!",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Message sent! It will be published after validation.",
+    "error": "An error occurred. Please try again.",
+    "loading": "Loading...",
+    "empty": "No messages yet."
+  },
+  "about": {
+    "title": "About",
+    "photoPlaceholder": "Author's photo"
+  }
+}

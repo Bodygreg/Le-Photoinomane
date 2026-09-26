@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './Contact.css'
 
 function Contact() {
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'error'
+  const [status, setStatus] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -35,18 +37,14 @@ function Contact() {
 
   return (
     <div className="contact">
-      <h1 className="contact__title">Contact</h1>
+      <h1 className="contact__title">{t('contact.title')}</h1>
 
-      <p className="contact__intro">
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-        classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin
-        professor at Hampden-Sydney College in Virginia.
-      </p>
+      <p className="contact__intro">{t('contact.intro')}</p>
 
       <form className="contact__form" onSubmit={handleSubmit}>
         <input
           type="email"
-          placeholder="e-mail"
+          placeholder={t('contact.emailPlaceholder')}
           className="contact__input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -54,7 +52,7 @@ function Contact() {
         />
 
         <textarea
-          placeholder="Message"
+          placeholder={t('contact.messagePlaceholder')}
           className="contact__textarea"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -62,11 +60,11 @@ function Contact() {
         />
 
         <button type="submit" className="contact__submit" disabled={status === 'sending'}>
-          {status === 'sending' ? 'Envoi...' : 'Envoyer'}
+          {status === 'sending' ? t('contact.sending') : t('contact.send')}
         </button>
 
-        {status === 'success' && <p className="contact__feedback contact__feedback--success">Message envoyé !</p>}
-        {status === 'error' && <p className="contact__feedback contact__feedback--error">Une erreur est survenue. Merci de réessayer.</p>}
+        {status === 'success' && <p className="contact__feedback contact__feedback--success">{t('contact.success')}</p>}
+        {status === 'error' && <p className="contact__feedback contact__feedback--error">{t('contact.error')}</p>}
       </form>
     </div>
   )

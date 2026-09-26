@@ -10,12 +10,13 @@ datasource db {
 }
 
 model Series {
-  id          Int      @id @default(autoincrement())
-  title       String
-  excerpt     String
-  description String
-  createdAt   DateTime @default(now())
-  photos      Photo[]
+  id           Int      @id @default(autoincrement())
+  title        String
+  excerpt      String
+  description  String
+  translations Json?
+  createdAt    DateTime @default(now())
+  photos       Photo[]
 }
 
 model Photo {

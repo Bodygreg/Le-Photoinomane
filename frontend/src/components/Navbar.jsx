@@ -1,19 +1,27 @@
 import { useState, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import AdminLoginModal from './AdminLoginModal'
 import './Navbar.css'
 
 const SECRET_SEQUENCE = ['fr', 'zh', 'ru', 'en']
-const SEQUENCE_TIMEOUT = 5000 // 5 secondes
+const SEQUENCE_TIMEOUT = 5000
 
 function Navbar() {
+  const { t, i18n } = useTranslation()
   const [showAdminModal, setShowAdminModal] = useState(false)
   const clicksRef = useRef([])
   const timeoutRef = useRef(null)
 
-  const handleLangClick = (lang) => {
-    clicksRef.current.push(lang)
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang)
+    localStorage.setItem('language', lang)
+  }
 
+  const handleLangClick = (lang) => {
+    changeLanguage(lang)
+
+    clicksRef.current.push(lang)
     clearTimeout(timeoutRef.current)
 
     const expectedSoFar = SECRET_SEQUENCE.slice(0, clicksRef.current.length)
@@ -43,7 +51,7 @@ function Navbar() {
       </div>
 
       <h1 className="navbar__title">
-        <Link to="/">Le Photoïnomane</Link>
+        <Link to="/">{t('nav.title')}</Link>
       </h1>
 
       <div className="navbar__lang navbar__lang--right">

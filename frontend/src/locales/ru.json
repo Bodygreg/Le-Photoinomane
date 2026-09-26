@@ -1,1 +1,46 @@
-{}
+{
+  "nav": {
+    "title": "Le Photoïnomane"
+  },
+  "footer": {
+    "guestbook": "Гостевая книга",
+    "about": "О нас",
+    "contact": "Контакты",
+    "admin": "Админ"
+  },
+  "home": {
+    "loading": "Загрузка...",
+    "error": "Ошибка при загрузке серий."
+  },
+  "seriesDetail": {
+    "loading": "Загрузка...",
+    "notFound": "Серия не найдена."
+  },
+  "contact": {
+    "title": "Контакты",
+    "intro": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
+    "emailPlaceholder": "e-mail",
+    "messagePlaceholder": "Сообщение",
+    "send": "Отправить",
+    "sending": "Отправка...",
+    "success": "Сообщение отправлено!",
+    "error": "Произошла ошибка. Пожалуйста, попробуйте снова."
+  },
+  "guestbook": {
+    "title": "Гостевая книга",
+    "writeButton": "Написать сообщение",
+    "backButton": "Назад",
+    "textareaPlaceholder": "Ваши впечатления",
+    "notice": "Любые впечатления приветствуются, если они вежливы и уважительны.\nЛюбая критика тоже, если она объективна и конструктивна.\nСпасибо!",
+    "send": "Отправить",
+    "sending": "Отправка...",
+    "success": "Сообщение отправлено! Оно будет опубликовано после проверки.",
+    "error": "Произошла ошибка. Пожалуйста, попробуйте снова.",
+    "loading": "Загрузка...",
+    "empty": "Пока нет сообщений."
+  },
+  "about": {
+    "title": "О нас",
+    "photoPlaceholder": "Фото автора"
+  }
+}

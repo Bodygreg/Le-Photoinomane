@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import SeriesCard from '../components/SeriesCard'
 import './Home.css'
 
 function Home() {
+  const { t, i18n } = useTranslation()
   const [series, setSeries] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/series`)
+    setLoading(true)
+    fetch(`${import.meta.env.VITE_API_URL}/api/series?lang=${i18n.language}`)
       .then((res) => {
-        if (!res.ok) throw new Error('Erreur lors du chargement des séries.')
+        if (!res.ok) throw new Error(t('home.error'))
         return res.json()
       })
       .then((data) => {
@@ -21,9 +24,9 @@ function Home() {
         setError(err.message)
         setLoading(false)
       })
-  }, [])
+  }, [i18n.language])
 
-  if (loading) return <p className="home__status">Chargement...</p>
+  if (loading) return <p className="home__status">{t('home.loading')}</p>
   if (error) return <p className="home__status">{error}</p>
 
   return (

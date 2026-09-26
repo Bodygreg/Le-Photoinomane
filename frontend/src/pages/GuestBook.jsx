@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import './GuestBook.css'
 
 function GuestBook() {
-  const [view, setView] = useState('list') // 'list' | 'write'
-  const [sortOrder, setSortOrder] = useState('desc') // 'desc' = récent d'abord
+  const { t } = useTranslation()
+  const [view, setView] = useState('list')
+  const [sortOrder, setSortOrder] = useState('desc')
   const [entries, setEntries] = useState([])
   const [loadingEntries, setLoadingEntries] = useState(true)
   const [message, setMessage] = useState('')
-  const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'error'
+  const [status, setStatus] = useState(null)
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/guestbook`)
@@ -30,7 +32,7 @@ function GuestBook() {
   }
 
   const formatDate = (dateStr) => {
-    return new Date(dateStr).toLocaleDateString('fr-FR', {
+    return new Date(dateStr).toLocaleDateString(undefined, {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -65,20 +67,18 @@ function GuestBook() {
 
   return (
     <div className="guestbook">
-      <h1 className="guestbook__title">Livre d'Or</h1>
+      <h1 className="guestbook__title">{t('guestbook.title')}</h1>
 
       {view === 'list' ? (
         <>
-          <button className="guestbook__sort" onClick={toggleSortOrder}>
-            ↑↓
-          </button>
+          <button className="guestbook__sort" onClick={toggleSortOrder}>↑↓</button>
 
           {loadingEntries ? (
-            <p className="guestbook__status">Chargement...</p>
+            <p className="guestbook__status">{t('guestbook.loading')}</p>
           ) : (
             <div className="guestbook__list">
               {sortedEntries.length === 0 ? (
-                <p className="guestbook__status">Aucun message pour l'instant.</p>
+                <p className="guestbook__status">{t('guestbook.empty')}</p>
               ) : (
                 sortedEntries.map((entry) => (
                   <div key={entry.id} className="guestbook__entry">
@@ -91,45 +91,35 @@ function GuestBook() {
           )}
 
           <button className="guestbook__write-btn" onClick={() => setView('write')}>
-            Ecrire un message
+            {t('guestbook.writeButton')}
           </button>
         </>
       ) : (
         <form className="guestbook__form" onSubmit={handleSubmit}>
           <textarea
-            placeholder="Vos impressions"
+            placeholder={t('guestbook.textareaPlaceholder')}
             className="guestbook__textarea"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
 
           <p className="guestbook__notice">
-            Toute impression est la bienvenue, tant qu'elle est courtoise et respectueuse.
-            <br />
-            Toute critique aussi, tant qu'elle est objective et constructive.
-            <br />
-            Merci !
+            {t('guestbook.notice').split('\n').map((line, i) => (
+              <span key={i}>{line}<br /></span>
+            ))}
           </p>
 
           <div className="guestbook__form-actions">
             <button type="button" className="guestbook__cancel" onClick={() => setView('list')}>
-              Retour
+              {t('guestbook.backButton')}
             </button>
             <button type="submit" className="guestbook__submit" disabled={status === 'sending'}>
-              {status === 'sending' ? 'Envoi...' : 'Envoyer'}
+              {status === 'sending' ? t('guestbook.sending') : t('guestbook.send')}
             </button>
           </div>
 
-          {status === 'success' && (
-            <p className="guestbook__feedback guestbook__feedback--success">
-              Message envoyé ! Il sera publié après validation.
-            </p>
-          )}
-          {status === 'error' && (
-            <p className="guestbook__feedback guestbook__feedback--error">
-              Une erreur est survenue. Merci de réessayer.
-            </p>
-          )}
+          {status === 'success' && <p className="guestbook__feedback guestbook__feedback--success">{t('guestbook.success')}</p>}
+          {status === 'error' && <p className="guestbook__feedback guestbook__feedback--error">{t('guestbook.error')}</p>}
         </form>
       )}
     </div>

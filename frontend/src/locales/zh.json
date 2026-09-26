@@ -1,1 +1,46 @@
-{}
+{
+  "nav": {
+    "title": "Le Photoïnomane"
+  },
+  "footer": {
+    "guestbook": "留言簿",
+    "about": "关于",
+    "contact": "联系",
+    "admin": "管理员"
+  },
+  "home": {
+    "loading": "加载中...",
+    "error": "加载系列时出错。"
+  },
+  "seriesDetail": {
+    "loading": "加载中...",
+    "notFound": "未找到该系列。"
+  },
+  "contact": {
+    "title": "联系",
+    "intro": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
+    "emailPlaceholder": "电子邮件",
+    "messagePlaceholder": "留言",
+    "send": "发送",
+    "sending": "发送中...",
+    "success": "消息已发送！",
+    "error": "发生错误，请重试。"
+  },
+  "guestbook": {
+    "title": "留言簿",
+    "writeButton": "写留言",
+    "backButton": "返回",
+    "textareaPlaceholder": "您的感想",
+    "notice": "欢迎留下任何印象，只要礼貌和尊重。\n欢迎任何批评，只要客观和建设性。\n谢谢！",
+    "send": "发送",
+    "sending": "发送中...",
+    "success": "消息已发送！审核后将会发布。",
+    "error": "发生错误，请重试。",
+    "loading": "加载中...",
+    "empty": "暂无留言。"
+  },
+  "about": {
+    "title": "关于",
+    "photoPlaceholder": "作者照片"
+  }
+}

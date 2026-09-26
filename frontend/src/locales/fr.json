@@ -1,1 +1,46 @@
-{}
+{
+  "nav": {
+    "title": "Le Photoïnomane"
+  },
+  "footer": {
+    "guestbook": "Livre d'or",
+    "about": "A propos",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "home": {
+    "loading": "Chargement...",
+    "error": "Erreur lors du chargement des séries."
+  },
+  "seriesDetail": {
+    "loading": "Chargement...",
+    "notFound": "Série introuvable."
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
+    "emailPlaceholder": "e-mail",
+    "messagePlaceholder": "Message",
+    "send": "Envoyer",
+    "sending": "Envoi...",
+    "success": "Message envoyé !",
+    "error": "Une erreur est survenue. Merci de réessayer."
+  },
+  "guestbook": {
+    "title": "Livre d'Or",
+    "writeButton": "Ecrire un message",
+    "backButton": "Retour",
+    "textareaPlaceholder": "Vos impressions",
+    "notice": "Toute impression est la bienvenue, tant qu'elle est courtoise et respectueuse.\nToute critique aussi, tant qu'elle est objective et constructive.\nMerci !",
+    "send": "Envoyer",
+    "sending": "Envoi...",
+    "success": "Message envoyé ! Il sera publié après validation.",
+    "error": "Une erreur est survenue. Merci de réessayer.",
+    "loading": "Chargement...",
+    "empty": "Aucun message pour l'instant."
+  },
+  "about": {
+    "title": "A propos",
+    "photoPlaceholder": "Photo de l'auteur"
+  }
+}

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import prisma from '../prisma.js'
+import { translateSeriesContent } from '../utils/translateSeries.js'
 
 export function login(req, res) {
   const { password } = req.body
@@ -51,11 +52,14 @@ export async function createSeries(req, res) {
     return res.status(400).json({ error: 'Titre, extrait et description requis.' })
   }
 
+  const translations = await translateSeriesContent(title, excerpt, description)
+
   const series = await prisma.series.create({
     data: {
       title,
       excerpt,
       description,
+      translations,
       photos: {
         create: (photos || []).map((p, index) => ({
           url: p.url,
@@ -78,7 +82,8 @@ export async function updateSeries(req, res) {
     return res.status(400).json({ error: 'Titre, extrait et description requis.' })
   }
 
-  // Stratégie simple : on remplace toutes les photos à chaque modification
+  const translations = await translateSeriesContent(title, excerpt, description)
+
   await prisma.photo.deleteMany({ where: { seriesId: Number(id) } })
 
   const series = await prisma.series.update({
@@ -87,6 +92,7 @@ export async function updateSeries(req, res) {
       title,
       excerpt,
       description,
+      translations,
       photos: {
         create: (photos || []).map((p, index) => ({
           url: p.url,
