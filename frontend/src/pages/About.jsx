@@ -10,7 +10,7 @@ function About() {
       <h1 className="about__title">{t('about.title')}</h1>
       <p className="about__bio">{bio}</p>
       <div className="about__photo">
-        <span>{t('about.photoPlaceholder')}</span>
+        <img src="https://res.cloudinary.com/ton-cloud-name/image/upload/xxxxx.jpg" alt="Photo de l'auteur" />
       </div>
     </div>
   )
