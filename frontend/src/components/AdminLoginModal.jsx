@@ -3,13 +3,13 @@ import './AdminLoginModal.css'
 
 function AdminLoginModal({ onClose }) {
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    setError(false)
+    setError(null)
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/login`, {
@@ -18,15 +18,23 @@ function AdminLoginModal({ onClose }) {
         body: JSON.stringify({ password }),
       })
 
-      if (!res.ok) throw new Error()
-
-      const data = await res.json()
-      localStorage.setItem('adminToken', data.token)
-      window.location.href = '/admin'
+      if (res.status === 401) {
+        setError('Mot de passe incorrect.')
+      } else if (res.status === 429) {
+        setError('Trop de tentatives. Réessayez dans 15 minutes.')
+      } else if (!res.ok) {
+        setError('Erreur du serveur.')
+      } else {
+        const data = await res.json()
+        localStorage.setItem('adminToken', data.token)
+        window.location.href = '/admin'
+        return
+      }
     } catch {
-      setError(true)
-      setLoading(false)
+      setError('Impossible de joindre le serveur.')
     }
+
+    setLoading(false)
   }
 
   return (
@@ -44,7 +52,7 @@ function AdminLoginModal({ onClose }) {
           <button type="submit" className="admin-modal__submit" disabled={loading}>
             {loading ? '...' : 'Valider'}
           </button>
-          {error && <p className="admin-modal__error">Mot de passe incorrect.</p>}
+          {error && <p className="admin-modal__error">{error}</p>}
         </form>
       </div>
     </div>
