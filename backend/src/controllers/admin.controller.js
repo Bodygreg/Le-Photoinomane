@@ -112,3 +112,8 @@ export async function deleteSeries(req, res) {
   await prisma.series.delete({ where: { id: Number(id) } })
   res.status(204).send()
 }
+
+export function checkSession(req, res) {
+  // Si on arrive ici, le middleware requireAuth a déjà validé le jeton
+  res.json({ valid: true })
+}

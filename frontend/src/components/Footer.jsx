@@ -1,10 +1,28 @@
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import './Footer.css'
 
 function Footer() {
   const { t } = useTranslation()
-  const isAdmin = !!localStorage.getItem('adminToken')
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken')
+    if (!token) return
+
+    fetch(`${import.meta.env.VITE_API_URL}/api/admin/session`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.ok) {
+          setIsAdmin(true)
+        } else if (res.status === 401) {
+          localStorage.removeItem('adminToken')
+        }
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <footer className="footer">

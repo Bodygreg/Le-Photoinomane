@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import {
   login,
+  checkSession,
   getPendingEntries,
   updateEntryStatus,
   getAllSeriesAdmin,
@@ -14,6 +15,7 @@ import { loginLimiter } from '../middleware/rateLimit.middleware.js'
 const router = Router()
 
 router.post('/login', loginLimiter, login)
+router.get('/session', requireAuth, checkSession)
 router.get('/guestbook/pending', requireAuth, getPendingEntries)
 router.patch('/guestbook/:id', requireAuth, updateEntryStatus)
 router.get('/series', requireAuth, getAllSeriesAdmin)
