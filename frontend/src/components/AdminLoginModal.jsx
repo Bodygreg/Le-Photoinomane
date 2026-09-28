@@ -15,6 +15,7 @@ function AdminLoginModal({ onClose }) {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ password }),
       })
 
@@ -25,8 +26,7 @@ function AdminLoginModal({ onClose }) {
       } else if (!res.ok) {
         setError('Erreur du serveur.')
       } else {
-        const data = await res.json()
-        localStorage.setItem('adminToken', data.token)
+        localStorage.setItem('adminSession', '1')
         window.location.href = '/admin'
         return
       }

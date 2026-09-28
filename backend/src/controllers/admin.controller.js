@@ -2,6 +2,13 @@ import jwt from 'jsonwebtoken'
 import prisma from '../prisma.js'
 import { translateSeriesContent } from '../utils/translateSeries.js'
 
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: process.env.COOKIE_SECURE === 'true',
+  sameSite: 'strict',
+  path: '/',
+}
+
 export function login(req, res) {
   const { password } = req.body
 
@@ -9,8 +16,20 @@ export function login(req, res) {
     return res.status(401).json({ error: 'Mot de passe incorrect.' })
   }
 
-  const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1h' })
-  res.json({ token })
+  const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '2h' })
+
+  res.cookie('adminToken', token, { ...COOKIE_OPTIONS, maxAge: 2 * 60 * 60 * 1000 })
+  res.json({ success: true })
+}
+
+export function logout(req, res) {
+  res.clearCookie('adminToken', COOKIE_OPTIONS)
+  res.json({ success: true })
+}
+
+export function checkSession(req, res) {
+  // Si on arrive ici, le middleware requireAuth a déjà validé le cookie
+  res.json({ valid: true })
 }
 
 export async function getPendingEntries(req, res) {
@@ -111,9 +130,4 @@ export async function deleteSeries(req, res) {
   const { id } = req.params
   await prisma.series.delete({ where: { id: Number(id) } })
   res.status(204).send()
-}
-
-export function checkSession(req, res) {
-  // Si on arrive ici, le middleware requireAuth a déjà validé le jeton
-  res.json({ valid: true })
 }

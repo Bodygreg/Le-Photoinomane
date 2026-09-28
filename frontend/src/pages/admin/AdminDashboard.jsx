@@ -6,8 +6,12 @@ import './AdminDashboard.css'
 function AdminDashboard() {
   const [tab, setTab] = useState('guestbook') // 'guestbook' | 'series'
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminToken')
+  const handleLogout = async () => {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/admin/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    }).catch(() => {})
+    localStorage.removeItem('adminSession')
     window.location.href = '/'
   }
 

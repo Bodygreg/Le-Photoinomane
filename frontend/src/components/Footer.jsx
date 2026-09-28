@@ -8,17 +8,15 @@ function Footer() {
   const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken')
-    if (!token) return
+    // Sans indicateur de session, aucune requête n'est envoyée
+    if (!localStorage.getItem('adminSession')) return
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/admin/session`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(`${import.meta.env.VITE_API_URL}/api/admin/session`, { credentials: 'include' })
       .then((res) => {
         if (res.ok) {
           setIsAdmin(true)
         } else if (res.status === 401) {
-          localStorage.removeItem('adminToken')
+          localStorage.removeItem('adminSession')
         }
       })
       .catch(() => {})

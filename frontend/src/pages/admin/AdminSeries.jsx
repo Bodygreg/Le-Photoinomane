@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { adminFetch } from '../../adminApi'
 import './AdminSeries.css'
 
 const emptyForm = { title: '', excerpt: '', description: '', photos: [] }
@@ -11,26 +12,12 @@ function AdminSeries() {
   const [uploading, setUploading] = useState(false)
   const [saving, setSaving] = useState(false)
 
-  const token = localStorage.getItem('adminToken')
-  const apiUrl = import.meta.env.VITE_API_URL
-
   const fetchSeries = () => {
-    fetch(`${apiUrl}/api/admin/series`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          localStorage.removeItem('adminToken')
-          window.location.href = '/'
-          return null
-        }
-        return res.json()
-      })
+    adminFetch('/api/admin/series')
+      .then((res) => (res.ok ? res.json() : []))
       .then((data) => {
-        if (data) {
-          setSeriesList(data)
-          setLoading(false)
-        }
+        setSeriesList(data)
+        setLoading(false)
       })
   }
 
@@ -49,11 +36,8 @@ function AdminSeries() {
         const formData = new FormData()
         formData.append('image', file)
 
-        const res = await fetch(`${apiUrl}/api/upload`, {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
-          body: formData,
-        })
+        const res = await adminFetch('/api/upload', { method: 'POST', body: formData })
+        if (!res.ok) throw new Error()
         const data = await res.json()
 
         setForm((prev) => ({
@@ -96,16 +80,11 @@ function AdminSeries() {
     setSaving(true)
 
     const method = editingId ? 'PUT' : 'POST'
-    const url = editingId
-      ? `${apiUrl}/api/admin/series/${editingId}`
-      : `${apiUrl}/api/admin/series`
+    const path = editingId ? `/api/admin/series/${editingId}` : '/api/admin/series'
 
-    await fetch(url, {
+    await adminFetch(path, {
       method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
     })
 
@@ -133,10 +112,7 @@ function AdminSeries() {
   const handleDelete = async (id) => {
     if (!confirm('Supprimer définitivement cette série et ses photos ?')) return
 
-    await fetch(`${apiUrl}/api/admin/series/${id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    await adminFetch(`/api/admin/series/${id}`, { method: 'DELETE' })
 
     fetchSeries()
   }

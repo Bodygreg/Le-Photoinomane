@@ -1,42 +1,23 @@
 import { useState, useEffect } from 'react'
+import { adminFetch } from '../../adminApi'
 
 function AdminGuestbook() {
   const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const token = localStorage.getItem('adminToken')
-
-  const fetchPending = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/admin/guestbook/pending`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          localStorage.removeItem('adminToken')
-          window.location.href = '/'
-          return null
-        }
-        return res.json()
-      })
-      .then((data) => {
-        if (data) {
-          setEntries(data)
-          setLoading(false)
-        }
-      })
-  }
-
   useEffect(() => {
-    fetchPending()
+    adminFetch('/api/admin/guestbook/pending')
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        setEntries(data)
+        setLoading(false)
+      })
   }, [])
 
   const handleModeration = async (id, status) => {
-    await fetch(`${import.meta.env.VITE_API_URL}/api/admin/guestbook/${id}`, {
+    await adminFetch(`/api/admin/guestbook/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     })
 
