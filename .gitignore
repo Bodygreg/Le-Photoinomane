@@ -3,3 +3,10 @@ node_modules/
 dist/
 build/
 *.log
+
+# Aides installées par la CLI Prisma
+backend/.agents/
+backend/.claude/
+backend/.windsurf/
+backend/.devin/
+backend/skills-lock.json
