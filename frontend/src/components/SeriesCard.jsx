@@ -11,7 +11,7 @@ function SeriesCard({ id, title, excerpt, photos }) {
         {coverUrl ? (
           <img src={coverUrl} alt={title} />
         ) : (
-          <span>Couverture série {id}</span>
+          <span className="series-card__placeholder">Couverture série {id}</span>
         )}
       </div>
       <p className="series-card__excerpt">{excerpt}</p>

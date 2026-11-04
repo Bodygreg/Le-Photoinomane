@@ -43,7 +43,7 @@ function SeriesDetail() {
 
     const interval = setInterval(() => {
       setCurrentPhoto((prev) => (prev === series.photos.length - 1 ? 0 : prev + 1))
-    }, 2500)
+    }, 4000)
 
     return () => clearInterval(interval)
   }, [isPlaying, series])
@@ -61,8 +61,12 @@ function SeriesDetail() {
         <button className="series-detail__arrow" onClick={goToPrevious}>‹</button>
 
         <div className="series-detail__image">
-          <img src={photo.url} alt={photo.caption || series.title} />
-          {photo.caption && <span className="series-detail__caption">{photo.caption}</span>}
+          <figure className="series-detail__figure">
+            <img src={photo.url} alt={photo.caption || series.title} />
+            {photo.caption && (
+              <figcaption className="series-detail__caption">{photo.caption}</figcaption>
+            )}
+          </figure>
         </div>
 
         <button className="series-detail__arrow" onClick={goToNext}>›</button>
